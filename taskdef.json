@@ -1,24 +1,22 @@
 {
-    "executionRoleArn": "arn:aws:iam::800280303592:role/ecsTaskExecutionRole",
-    "containerDefinitions": [
+  "executionRoleArn": "arn:aws:iam::800280303592:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "sample-website",
+      "image": "<IMAGE1_NAME>",
+      "essential": true,
+      "portMappings": [
         {
-            "name": "sample-website",
-            "image": "<IMAGE1_NAME>",
-            "essential": true,
-            "portMappings": [
-                {
-                    "hostPort": 80,
-                    "protocol": "tcp",
-                    "containerPort": 80
-                }
-            ]
+          "hostPort": 80,
+          "protocol": "tcp",
+          "containerPort": 800
         }
-    ],
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
-    "networkMode": "awsvpc",
-    "cpu": "256",
-    "memory": "512",
-    "family": "ecs-demo"
+      ]
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "family": "ecs-demo"
 }
