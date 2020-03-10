@@ -9,6 +9,10 @@ data "aws_region" "current" {}
 
 data "aws_availability_zones" "available" {}
 
+variable "github_token" {
+  type = string
+}
+
 resource "aws_s3_bucket" "codepipeline_bucket" {
   bucket = "tf-codepipeline-bucket-20200307"
   acl    = "private"
@@ -101,7 +105,7 @@ resource "aws_codepipeline" "codepipeline" {
         Owner                = "kshitijchoudha"
         Repo                 = "codepipeline"
         Branch               = "master"
-        OAuthToken           = "***"
+        OAuthToken           = "${var.github_token}"
         PollForSourceChanges = "false"
       }
     }
