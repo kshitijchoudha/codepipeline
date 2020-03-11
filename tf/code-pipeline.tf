@@ -1,17 +1,4 @@
-provider "aws" {
-  region  = "us-east-2"
-  version = ">= 2.38.0"
-}
 
-# Using these data sources allows the configuration to be
-# generic for any region.
-data "aws_region" "current" {}
-
-data "aws_availability_zones" "available" {}
-
-variable "github_token" {
-  type = string
-}
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
   bucket = "tf-codepipeline-bucket-20200307"
@@ -39,7 +26,7 @@ data "aws_iam_role" "codepipeline_role" {
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
   name = "codepipeline_policy"
-  role = "${data.aws_iam_role.codepipeline_role.id}"
+  role = data.aws_iam_role.codepipeline_role.id
 
   policy = <<EOF
 {
@@ -53,7 +40,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         "s3:GetBucketVersioning",
         "s3:PutObject"
       ],
-      "Resource": [
+     "Resource": [
         "${aws_s3_bucket.codepipeline_bucket.arn}",
         "${aws_s3_bucket.codepipeline_bucket.arn}/*"
       ]
@@ -77,14 +64,14 @@ data "aws_kms_alias" "s3kmskey" {
 
 resource "aws_codepipeline" "codepipeline" {
   name     = "tf-test-pipeline"
-  role_arn = "${data.aws_iam_role.codepipeline_role.arn}"
+  role_arn = data.aws_iam_role.codepipeline_role.arn
 
   artifact_store {
-    location = "${aws_s3_bucket.codepipeline_bucket.bucket}"
+    location = aws_s3_bucket.codepipeline_bucket.bucket
     type     = "S3"
 
     encryption_key {
-      id   = "${data.aws_kms_alias.s3kmskey.arn}"
+      id   = data.aws_kms_alias.s3kmskey.arn
       type = "KMS"
     }
   }
@@ -105,7 +92,7 @@ resource "aws_codepipeline" "codepipeline" {
         Owner                = "kshitijchoudha"
         Repo                 = "codepipeline"
         Branch               = "master"
-        OAuthToken           = "${var.github_token}"
+        OAuthToken           = var.github_token
         PollForSourceChanges = "false"
       }
     }
