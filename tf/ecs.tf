@@ -48,7 +48,9 @@ resource "aws_ecs_service" "tf_ecs_service" {
   #iam_role        = data.aws_iam_role.codepipeline_role.arn
   #depends_on      = [data.aws_iam_role.codepipeline_role]
   launch_type = "FARGATE"
-
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
   load_balancer {
     target_group_arn = data.aws_lb_target_group.tf_ecs_targetgroup.arn
     container_name   = "tf-demo-service"
