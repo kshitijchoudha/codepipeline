@@ -17,7 +17,7 @@
   "requiresCompatibilities": ["FARGATE"],
   "networkMode": "awsvpc",
   "cpu": "256",
-  "memory": "512",
+  "memory": "1024",
   "family": "tf-nginx",
   "logConfiguration": {
     "logDriver": "awslogs",
