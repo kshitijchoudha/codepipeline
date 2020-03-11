@@ -16,7 +16,7 @@
   ],
   "requiresCompatibilities": ["FARGATE"],
   "networkMode": "awsvpc",
-  "cpu": "256",
+  "cpu": "512",
   "memory": "512",
   "family": "tf-nginx",
   "logConfiguration": {

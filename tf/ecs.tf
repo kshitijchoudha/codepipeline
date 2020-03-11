@@ -6,6 +6,10 @@ resource "aws_ecs_cluster" "tf_ecs" {
   name = "tf_ecs"
 }
 
+data "aws_ecs_task_definition" "tf_nginx_service" {
+  task_definition = "${aws_ecs_task_definition.tf_nginx_service.family}"
+}
+
 resource "aws_ecs_task_definition" "tf_nginx_service" {
   family                   = "tf-nginx"
   requires_compatibilities = ["FARGATE"]
@@ -41,9 +45,10 @@ resource "aws_ecs_task_definition" "tf_nginx_service" {
 }
 
 resource "aws_ecs_service" "tf_ecs_service" {
-  name            = "tf_ecs_service"
-  cluster         = aws_ecs_cluster.tf_ecs.id
-  task_definition = aws_ecs_task_definition.tf_nginx_service.arn
+  name    = "tf_ecs_service"
+  cluster = aws_ecs_cluster.tf_ecs.id
+  #task_definition = aws_ecs_task_definition.tf_nginx_service.arn
+  task_definition = "${aws_ecs_task_definition.tf_nginx_service.family}:${max("${aws_ecs_task_definition.tf_nginx_service.revision}", "${data.aws_ecs_task_definition.tf_nginx_service.revision}")}"
   desired_count   = 3
   #iam_role        = data.aws_iam_role.codepipeline_role.arn
   #depends_on      = [data.aws_iam_role.codepipeline_role]
