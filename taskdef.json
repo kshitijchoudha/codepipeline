@@ -19,14 +19,14 @@
   "cpu": "256",
   "memory": "512",
   "family": "tf-nginx",
-  "logConfiguration": [
+  "logConfiguration": 
     {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "awslogs-ecs",
+        "awslogs-group": "awslogs-ecs1",
         "awslogs-region": "us-east-2",
-        "awslogs-stream-prefix": "awslogs-ecs"
+        "awslogs-stream-prefix": "awslogs-ecs1"
       }
     }
-  ]
+  1
 }
