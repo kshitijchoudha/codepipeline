@@ -104,7 +104,7 @@ resource "aws_codepipeline" "codepipeline" {
       run_order = "1"
       version   = "1"
       configuration = {
-        ImageTag       = "tf-dev"
+        ImageTag       = "tf-dev1"
         RepositoryName = "nginx"
       }
       output_artifacts = ["TestImage"]
