@@ -24,8 +24,7 @@
     "options": {
       "awslogs-group": "awslogs-ecs",
       "awslogs-region": "us-east-2",
-      "awslogs-stream-prefix": "awslogs-ecs",
-      "awslogs-create-group": "true"
+      "awslogs-stream-prefix": "awslogs-ecs"
     }
   }
 }
