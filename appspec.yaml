@@ -8,4 +8,4 @@ Resources:
           ContainerName: "tf-demo-service"
           ContainerPort: 80
 Hooks:
-  - AllowTestTraffic: "ecsdeploymentcheck"
+  - BeforeAllowTraffic: "ecsdeploymentcheck"
