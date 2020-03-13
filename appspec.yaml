@@ -7,3 +7,5 @@ Resources:
         LoadBalancerInfo:
           ContainerName: "tf-demo-service"
           ContainerPort: 80
+Hooks:
+  - AfterAllowTraffic: "ecsdeploymentcheck"
