@@ -49,7 +49,7 @@ resource "aws_ecs_service" "tf_ecs_service" {
   cluster = aws_ecs_cluster.tf_ecs.id
   #task_definition = aws_ecs_task_definition.tf_nginx_service.arn
   task_definition = "${aws_ecs_task_definition.tf_nginx_service.family}:${max("${aws_ecs_task_definition.tf_nginx_service.revision}", "${data.aws_ecs_task_definition.tf_nginx_service.revision}")}"
-  desired_count   = 3
+  desired_count   = 1
   #iam_role        = data.aws_iam_role.codepipeline_role.arn
   #depends_on      = [data.aws_iam_role.codepipeline_role]
   launch_type = "FARGATE"
