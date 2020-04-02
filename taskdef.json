@@ -1,5 +1,5 @@
 {
-  "taskRoleArn": "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess",
+  "taskRoleArn": "arn:aws:iam::800280303592:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::800280303592:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
