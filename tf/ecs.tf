@@ -20,25 +20,6 @@ resource "aws_ecs_task_definition" "tf_nginx_service" {
 
   container_definitions = <<EOF
 [{
-			"essential": true,
-			"image": "906394416424.dkr.ecr.us-east-1.amazonaws.com/aws-for-fluent-bit:latest",
-			"name": "log_router",
-			"firelensConfiguration": {
-				"type": "fluentbit"
-			},
-			"logConfiguration": {
-				"logDriver": "awslogs",
-				"options": {
-					"awslogs-group": "firelens-container",
-					"awslogs-region": "us-east-2",
-					"awslogs-create-group": "true",
-					"awslogs-stream-prefix": "firelens"
-				}
-			},
-			"memoryReservation": 50
-		 },
-  
-  {
       "name": "tf-demo-service",
       "image": "800280303592.dkr.ecr.us-east-2.amazonaws.com/nginx:tf-dev",
       "essential": true,
@@ -50,13 +31,12 @@ resource "aws_ecs_task_definition" "tf_nginx_service" {
         }
       ],
       "logConfiguration": {
-                "logDriver": "awsfirelens",
+                "logDriver": "awslogs",
                 "options": {
-                    "Name": "cloudwatch",
-                    "log_group_name": "awslogs-ecs-fluentbit",
-                    "region": "us-east-2",
-                    "log_stream_prefix": "awslogs-ecs-fluentbit",
-                    "auto_create_group" : "true"
+                    "awslogs-group": "awslogs-ecs",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "awslogs-ecs",
+                    "awslogs-create-group" : "true"
                 }
             }
     }]
