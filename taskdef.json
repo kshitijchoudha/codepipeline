@@ -2,6 +2,22 @@
   "executionRoleArn": "arn:aws:iam::800280303592:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
+			"essential": true,
+			"image": "906394416424.dkr.ecr.us-east-1.amazonaws.com/aws-for-fluent-bit:latest",
+			"name": "log_router",
+			"firelensConfiguration": {
+				"type": "fluentbit"
+			},
+			"logConfiguration": {
+				"logDriver": "awslogs",
+				"options": {
+					"awslogs-group": "firelens-container",
+					"awslogs-region": "us-east-2",
+					"awslogs-create-group": "true",
+					"awslogs-stream-prefix": "firelens"
+				}
+			},
+    {
       "name": "tf-demo-service",
       "image": "<IMAGE1_NAME>",
       "essential": true,
@@ -20,11 +36,13 @@
   "memory": "512",
   "family": "tf-nginx",
   "logConfiguration": {
-    "logDriver": "awslogs",
+    "logDriver": "awsfirelens",
     "options": {
-      "awslogs-group": "awslogs-ecs1",
-      "awslogs-region": "us-east-2",
-      "awslogs-stream-prefix": "awslogs-ecs"
+        "Name": "cloudwatch",
+        "log_group_name": "ecs-from-fbit",
+        "region": "us-east-2",
+        "log_stream_prefix": "ecs-fbit-nginx",
+        "auto_create_group" : "true"
     }
-  }
+}
 }
